@@ -1,0 +1,80 @@
+*{
+  margin: 0;
+  padding: 0;
+  font-family: "IRANSansFaNum", serif !important;
+}
+@font-face {
+  font-family: 'IRANSansFaNum';
+  src: local('IRANSansFa'), url(../Fonts/IRANSansFaNum.ttf) format('truetype');
+}
+body {
+  text-align: right;
+  color: black;
+  font-size: 14px;
+  padding: 15px;
+}
+.font-14{ font-size: 14px !important }
+.rtl{ direction: rtl }
+.ltr{ direction: ltr }
+.width-150{width: 150px}
+.cur-pointer {
+  cursor: pointer;
+}
+.bg-red{color: red}
+.bg-green{color: green}
+.profileImg{
+  width: 200px;
+  height: 200px;
+}
+.userItem{
+  background-color: #f5f6fb;
+  padding: 10px;
+}
+.addUser{
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  right: 30px;
+  bottom: 20px;
+  border-radius: 50%;
+  box-shadow: 1px 3px 11px 0 rgba(0, 0, 0, 0.18);
+  background-color: #1befef;
+  z-index: 1000;
+  cursor: pointer;
+  &:hover{
+    background-color: #15a5a5;
+  }
+}
+.modal{
+  position: fixed;
+  bottom: 60px;
+  left: 20px;
+  z-index: 2;
+  display: none;
+  width: max-content;
+  height: max-content;
+  overflow: hidden;
+  outline: 0;
+}
+.modal .modal-dialog {
+  width: 80vw !important;
+  max-width: 80vw !important;
+  margin: 1.75rem auto;
+}
+
+.file-uploader-box {
+  position: relative;
+  overflow: hidden;
+  .file-uploader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    font-size: 200px;
+    text-indent: 100%;
+    outline: none;
+    box-shadow: none;
+    cursor: pointer;
+  }
+}
