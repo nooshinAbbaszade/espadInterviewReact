@@ -15,7 +15,7 @@ const UserItem = ({user,handleCheckUser,selectUserForPin,showFormUserModal}) => 
     <div className='userItem py-2 mt-2 d-flex'>
       <div className="width-150 rounded mr-2 d-flex align-items-center justify-content-center">
       {user.profilePic.profilePic ?
-        <img src={user.profilePic.profilePic} className='w-100'/> :
+        <img src={user.profilePic.profilePic} className='w-100 h-100 object-fit-cover'/> :
           <CameraIcon />
       }
       </div>

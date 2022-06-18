@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import "./assets/scss/style.scss";
 import SearchBox from "./components/searchBox";
 import { userData } from "./data";
@@ -28,16 +28,20 @@ function App() {
   const [errorForm,setErrorForm]=useState(false);
   const [newUser,setNewUser]=useState( initialNewUser);
 
-  const handleChangeSearch = e => {
+  const handleChangeSearch = (e) => {
     setFieldSearch(e.target.value)
-      const filterData = userData.filter(item => item.name.name.toLowerCase().includes(e.target.value.toLowerCase()));
-      setUsers(filterData)
-  }
-  const handleAddUser = () => {
+    if (e.target.value.length === 0) return setUsers(usersStorage)
+    const filterName = users.filter(item => item.name.name.toLowerCase().includes(e.target.value.toLowerCase()));
+    const filterPin= users.filter(item => item.pin.pin);
+    const filterData = new Set([...filterPin,...filterName]);
+      setUsers([...filterData]);
+  };
+
+  const handleAddUser =() => {
     const filledForm =Object.keys(newUser).map((key,index) => {
-     return  newUser[key][key]
+     return  newUser[key][key];
     })
-    filledForm.pop()
+    filledForm.pop();
     const isFilled = filledForm.every(item => item);
     if (isFilled) {
       setShowFormUserModal(false);
@@ -47,8 +51,8 @@ function App() {
       localStorage.setItem('USERS',JSON.stringify([...users,newUser]))
     }
     else setErrorForm(true)
-
   }
+
   const handleEditUser = (id) => {
     const usersCopy = [...users]
     let findIndex = usersCopy.findIndex(item => item.idNo.idNo === id);
@@ -80,13 +84,18 @@ function App() {
     localStorage.setItem('USERS',JSON.stringify(usersCopy))
   }
 
-  const handleShowFormUserModal = (id) => {
+  const handleShowFormUserModal =(id) => {
     setShowFormUserModal(true)
     const findItem = users.find(item => item.idNo.idNo === id)
     setUserEdit(findItem)
   }
+
   const handleCloseFormUserModal = () =>{
-    userEdit && setUserEdit(null)
+    if (userEdit) setUserEdit(null)
+    else {
+      setNewUser(initialNewUser)
+      setErrorForm(false)
+    };
     setShowFormUserModal(false)
   }
 
