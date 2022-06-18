@@ -1,9 +1,22 @@
 import React  from 'react';
 import { fileToBase64 } from "../utils/fileToBase64";
 import {ReactComponent as CameraIcon } from '../assets/image/camera.svg';
+import {UserDataType} from "../types/app";
 
-const FormUser = ({newUser,setNewUser,handleCloseFormUserModal,handleSaveUser,errorForm}) => {
-  const changeAvatar = async (e) => {
+const FormUser = ({
+  newUser,
+  setNewUser,
+  handleCloseFormUserModal,
+  handleSaveUser,
+  errorForm
+} : {
+  newUser:UserDataType;
+  setNewUser:Function;
+  handleCloseFormUserModal:Function;
+  handleSaveUser:Function;
+  errorForm:boolean;
+}) => {
+  const changeAvatar = async (e:any) => {
     const files = e.target.files;
     for(let item of files){
       await fileToBase64(item, 'image')
@@ -25,7 +38,7 @@ const FormUser = ({newUser,setNewUser,handleCloseFormUserModal,handleSaveUser,er
           <input
             className='form-control w-75'
             type="text"
-            value={newUser.name.name}
+            value={newUser?.name.name}
             onChange={(e) => setNewUser({...newUser ,name:{name:e.target.value,isVerify: false}})}
           />
         </div>
@@ -34,7 +47,7 @@ const FormUser = ({newUser,setNewUser,handleCloseFormUserModal,handleSaveUser,er
         <input
           className='form-control w-75'
           type="text"
-          value={newUser.familyName.familyName}
+          value={newUser?.familyName.familyName}
           onChange={(e) => setNewUser({...newUser ,familyName:{familyName:e.target.value,isVerify: false}})}
         />
       </div>
@@ -43,7 +56,7 @@ const FormUser = ({newUser,setNewUser,handleCloseFormUserModal,handleSaveUser,er
         <input
           className='form-control w-75'
           type="text"
-          value={newUser.mobile.mobile}
+          value={newUser?.mobile.mobile}
           onChange={(e) => setNewUser({...newUser ,mobile:{mobile:e.target.value,isVerify: false}})}
         />
       </div>
@@ -52,7 +65,7 @@ const FormUser = ({newUser,setNewUser,handleCloseFormUserModal,handleSaveUser,er
         <input
           className='form-control w-75'
           type="text"
-          value={newUser.idNo.idNo}
+          value={newUser?.idNo.idNo}
           onChange={(e) => setNewUser({...newUser ,idNo:{idNo:e.target.value,isVerify: false}})}
         />
       </div>
@@ -61,7 +74,7 @@ const FormUser = ({newUser,setNewUser,handleCloseFormUserModal,handleSaveUser,er
         <input
           className='form-control w-75'
           type="text"
-          value={newUser.birthDate.birthDate}
+          value={newUser?.birthDate.birthDate}
           onChange={(e) => setNewUser({...newUser ,birthDate:{birthDate:e.target.value,isVerify: false}})}
         />
       </div>
@@ -70,7 +83,7 @@ const FormUser = ({newUser,setNewUser,handleCloseFormUserModal,handleSaveUser,er
         <input
           className='form-control w-75'
           type="text"
-          value={newUser.address.address}
+          value={newUser?.address.address}
           onChange={(e) => setNewUser({...newUser ,address:{address:e.target.value,isVerify: false}})}
         />
       </div>
@@ -81,8 +94,8 @@ const FormUser = ({newUser,setNewUser,handleCloseFormUserModal,handleSaveUser,er
           <input onChange={changeAvatar} className="file-uploader" type="file"/>
           < div className='profileImg rounded cur-pointer bg-white d-flex justify-content-center align-items-center border'>
             {
-              newUser.profilePic.profilePic ?
-                <img src={newUser.profilePic.profilePic} className='w-100 h-100'/>
+              newUser?.profilePic.profilePic ?
+                <img src={newUser?.profilePic.profilePic} className='w-100 h-100'/>
                 :
                 <CameraIcon />
 
@@ -96,8 +109,8 @@ const FormUser = ({newUser,setNewUser,handleCloseFormUserModal,handleSaveUser,er
 
       {errorForm && <p className='font-14 bg-red'>اطلاعات را تکمیل کنید</p>}
       <div className='d-flex rtl'>
-        <button className='btn btn-primary' onClick={()=>handleSaveUser(newUser.idNo.idNo)}>save</button>
-        <button className='btn btn-secondary mx-2' onClick={handleCloseFormUserModal}>back</button>
+        <button className='btn btn-primary' onClick={()=>handleSaveUser(newUser?.idNo.idNo)}>save</button>
+        <button className='btn btn-secondary mx-2' onClick={()=>handleCloseFormUserModal()}>back</button>
       </div>
 
     </div>

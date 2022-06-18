@@ -1,7 +1,8 @@
 import profile1 from '../src/assets/image/profile1.jpeg';
 import profile2 from '../src/assets/image/profile2.jpeg';
 import profile3 from '../src/assets/image/profile3.jpeg';
-export const userData = [
+
+export const userData =[
   {
     name:{name: 'jack', isVerify: true},
     familyName:{familyName: 'stewart', isVerify: true},

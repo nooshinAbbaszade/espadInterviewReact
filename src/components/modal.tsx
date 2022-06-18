@@ -1,24 +1,24 @@
 import React from 'react';
 import BootstrapModal from 'react-bootstrap/Modal';
-import {ReactComponent as CloseIcon} from "../assets/image/closeIcon.svg";
 
 const Modal = ({
   setShow,
   showState,
   className,
   bodyClassName,
-  noCloseBtn,
-  backdrop,
   children,
-  bsPrefix,
+}:{
+  setShow:Function;
+  showState:boolean;
+  className:string;
+  bodyClassName:string;
+  children:React.ReactNode
 }) => {
   return (
     <BootstrapModal
       show={showState}
       onHide={() => setShow(false)}
       dialogClassName={className}
-      backdrop={backdrop}
-      bsPrefix={bsPrefix}
       centered
     >
       <BootstrapModal.Body className={bodyClassName || 'p-0'}>

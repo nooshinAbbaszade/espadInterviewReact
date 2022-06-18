@@ -9,8 +9,6 @@ N
 src/assets/image/notVerify.svg,b/2/b2fc51ddc3fd88b85106dea8c3426aeddddcdcf5
 K
 src/assets/image/verify.svg,6/3/63db7fd880b823cba2ddeb65881cb3f1e2a5f46c
-<
-package.json,7/0/7030d0b2f71b999ff89a343de08c414af32fc93a
 N
 src/assets/image/closeIcon.svg,9/1/91f69702b7af9587995d01f8753eda678b9618b7
 I
@@ -23,5 +21,3 @@ M
 src/assets/image/checkBtn.svg,1/5/15b959636e78e29a4503b9f60e51828014744ff0
 A
 public/index.html,f/4/f43ecdf8d666ee908aacce037b4cd72159e4741b
-<
-src/index.js,f/9/f900edc44cb929c2267a16100a32851f6d5b477d

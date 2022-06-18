@@ -6,6 +6,7 @@ import UserItem from "./components/userItem";
 import FormUser from "./components/formUser";
 import Modal from './components/modal';
 import CheckUser from "./components/checkUser";
+import {UserDataType} from "./types/app";
 
 const initialNewUser = {
   name:{name: '', isVerify: false},
@@ -18,17 +19,17 @@ const initialNewUser = {
   pin:{pin:false,isVerify: true}
 }
 function App() {
-  const usersStorage = JSON.parse(localStorage.getItem('USERS')) || userData
-  const [fieldSearch,setFieldSearch] = useState('');
-  const [users,setUsers]=useState(usersStorage);
-  const [userCheck,setUserCheck]=useState({});
-  const [userEdit,setUserEdit]=useState(null);
-  const [showFormUserModal,setShowFormUserModal]=useState(false);
-  const [showCheckUserModal,setShowCheckUserModal]=useState(false);
-  const [errorForm,setErrorForm]=useState(false);
-  const [newUser,setNewUser]=useState( initialNewUser);
+  const usersStorage = JSON.parse(localStorage.getItem('USERS')!) || userData
+  const [fieldSearch,setFieldSearch] = useState<string>('');
+  const [users,setUsers]=useState<UserDataType[]>(usersStorage);
+  const [userCheck,setUserCheck]=useState<UserDataType | null>(null);
+  const [userEdit,setUserEdit]=useState<UserDataType | null>(null);
+  const [newUser,setNewUser]=useState<UserDataType>( initialNewUser);
+  const [showFormUserModal,setShowFormUserModal]=useState<boolean>(false);
+  const [showCheckUserModal,setShowCheckUserModal]=useState<boolean>(false);
+  const [errorForm,setErrorForm]=useState<boolean>(false);
 
-  const handleChangeSearch = (e) => {
+  const handleChangeSearch = (e:any) => {
     setFieldSearch(e.target.value)
     if (e.target.value.length === 0) return setUsers(usersStorage)
     const filterName = users.filter(item => item.name.name.toLowerCase().includes(e.target.value.toLowerCase()));
@@ -38,9 +39,7 @@ function App() {
   };
 
   const handleAddUser =() => {
-    const filledForm =Object.keys(newUser).map((key,index) => {
-     return  newUser[key][key];
-    })
+    const filledForm =Object.keys(newUser).map(key =>  newUser[key][key])
     filledForm.pop();
     const isFilled = filledForm.every(item => item);
     if (isFilled) {
@@ -53,30 +52,34 @@ function App() {
     else setErrorForm(true)
   }
 
-  const handleEditUser = (id) => {
+  const handleEditUser = (id:string) => {
     const usersCopy = [...users]
     let findIndex = usersCopy.findIndex(item => item.idNo.idNo === id);
-    usersCopy[findIndex] = userEdit;
+    if (userEdit) {
+      usersCopy[findIndex] = userEdit;
+    }
     setUsers(usersCopy)
     setUserEdit(null)
     setShowFormUserModal(false)
     localStorage.setItem('USERS',JSON.stringify(usersCopy))
   }
-  const handleCheckUserModal = (id) =>{
+  const handleCheckUserModal = (id:string) =>{
     setShowCheckUserModal(true)
-    const findItem = users.find(item => item.idNo.idNo === id)
+    const findItem = users.find(item => item.idNo.idNo === id)!
     setUserCheck(findItem)
   }
-  const handleSaveCheckUser = (id)=>{
+  const handleSaveCheckUser = (id:string)=>{
     const usersCopy = [...users]
     let findIndex = usersCopy.findIndex(item => item.idNo.idNo === id);
-    usersCopy[findIndex] = userCheck;
+    if (userCheck) {
+      usersCopy[findIndex] = userCheck;
+    }
     setUsers(usersCopy)
     setShowCheckUserModal(false)
     localStorage.setItem('USERS',JSON.stringify(usersCopy))
 
   }
-  const selectUserForPin =(check,id)=>{
+  const selectUserForPin =(check:boolean,id:string)=>{
     const usersCopy = [...users]
     let findIndex = usersCopy.findIndex(item => item.idNo.idNo === id);
     usersCopy[findIndex] = {...usersCopy[findIndex],pin:{pin:check,isVerify:true}};
@@ -84,9 +87,9 @@ function App() {
     localStorage.setItem('USERS',JSON.stringify(usersCopy))
   }
 
-  const handleShowFormUserModal =(id) => {
+  const handleShowFormUserModal =(id:string) => {
     setShowFormUserModal(true)
-    const findItem = users.find(item => item.idNo.idNo === id)
+    const findItem = users.find(item => item.idNo.idNo === id)!
     setUserEdit(findItem)
   }
 
@@ -103,7 +106,7 @@ function App() {
   const PinAll = Object.keys(users).every((key) => users[key].pin.pin);
   const NoPinAll = Object.keys(users).every((key) => !users[key].pin.pin);
   if (PinAll || NoPinAll) users.sort((a,b) => (a.name.name > b.name.name) ? 1 : ((b.name.name > a.name.name ? -1 : 0)))
-  else  users.sort((x,y)=>{ return x.pin.pin === true ? -1 : y.code === true ? 1 : 0; });
+  else  users.sort((x,y)=>{ return x.pin.pin ? -1 : y.pin.pin ? 1 : 0; });
 
   const _users =
     users.map(user => {
@@ -111,7 +114,7 @@ function App() {
       <UserItem
         key={user.idNo.idNo}
         user={user}
-        selectUserForPin={(check) => selectUserForPin(check, user.idNo.idNo)}
+        selectUserForPin={(check:boolean) => selectUserForPin(check, user.idNo.idNo)}
         handleCheckUser={() => handleCheckUserModal(user.idNo.idNo)}
         showFormUserModal={()=>handleShowFormUserModal(user.idNo.idNo)}
       />
@@ -121,7 +124,7 @@ function App() {
   return (
     <>
       <SearchBox
-        onChange={handleChangeSearch}
+        onChange={(e:any)=>handleChangeSearch(e)}
         value={fieldSearch}
       />
       {_users}
@@ -131,27 +134,27 @@ function App() {
 
       {
         showFormUserModal &&
+        (userEdit || newUser) &&
         <Modal
           showState={showFormUserModal}
           setShow={setShowFormUserModal}
-          bsPrefix="modal"
           className="my-modal"
           bodyClassName="py-lg-4 py-2 px-3 px-lg-4">
           <FormUser
             newUser={userEdit || newUser}
             errorForm={errorForm}
             setNewUser={userEdit ? setUserEdit : setNewUser}
-            handleCloseFormUserModal={handleCloseFormUserModal}
-            handleSaveUser={(id)=>userEdit ? handleEditUser(id) : handleAddUser()}
+            handleCloseFormUserModal={()=>handleCloseFormUserModal()}
+            handleSaveUser={(id:string)=>userEdit ? handleEditUser(id) : handleAddUser()}
           />
         </Modal>
       }
       {
         showCheckUserModal &&
+        userCheck &&
         <Modal
           showState={showCheckUserModal}
           setShow={setShowCheckUserModal}
-          bsPrefix="modal"
           className="my-modal"
           bodyClassName="py-lg-4 py-2 px-3 px-lg-4">
           <CheckUser
