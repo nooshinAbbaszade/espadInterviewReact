@@ -1,11 +1,11 @@
 
 export interface UserDataType {
-  name: {name: string, isVerify: boolean};
-  familyName:{familyName: string, isVerify: boolean};
-  birthDate:{birthDate: string, isVerify: boolean};
-  idNo:{idNo: string, isVerify: boolean};
-  mobile:{mobile: string, isVerify: boolean};
-  address:{address: string, isVerify: boolean};
-  profilePic:{profilePic: string,isVerify: boolean};
-  pin:{pin:boolean,isVerify: boolean};
+  name: {value: string, isVerify: boolean};
+  familyName:{value: string, isVerify: boolean};
+  birthDate:{value: string, isVerify: boolean};
+  idNo:{value: string, isVerify: boolean};
+  mobile:{value: string, isVerify: boolean};
+  address:{value: string, isVerify: boolean};
+  profilePic:{value: string,isVerify: boolean};
+  pin:{value:boolean,isVerify: boolean};
 }

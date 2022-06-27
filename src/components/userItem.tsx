@@ -20,26 +20,26 @@ const UserItem = ({
     return user && user[key].isVerify;
   });
   const handleChecked = () => {
-    selectUserForPin(!user?.pin.pin)
+    selectUserForPin(!user?.pin.value)
   }
   return (
     <div className='userItem py-2 mt-2 d-flex'>
       <div className="width-150 rounded mr-2 d-flex align-items-center justify-content-center">
-      {user?.profilePic.profilePic ?
-        <img src={user?.profilePic.profilePic} className='w-100 h-100 object-fit-cover'/> :
+      {user?.profilePic.value ?
+        <img src={user?.profilePic.value} className='w-100 h-100 object-fit-cover'/> :
           <CameraIcon />
       }
       </div>
       <div className='w-100 flex-column d-flex justify-content-center'>
         <div className='d-flex'>
           <div className='d-flex flex-column  justify-content-center w-100'>
-            <p>Name : {user?.name.name}</p>
-            <p>Family Name : {user?.familyName.familyName}</p>
-            <p>Birth Date : {user?.birthDate.birthDate}</p>
+            <p>Name : {user?.name.value}</p>
+            <p>Family Name : {user?.familyName.value}</p>
+            <p>Birth Date : {user?.birthDate.value}</p>
           </div>
           <div className='d-flex'>
             <EditIcon className='cur-pointer' onClick={()=>showFormUserModal()}/>
-            <input type="checkbox" checked={user?.pin.pin} onChange={()=>handleChecked()} className='cur-pointer ml-2'/>
+            <input type="checkbox" checked={user?.pin.value} onChange={()=>handleChecked()} className='cur-pointer ml-2'/>
           </div>
 
         </div>
