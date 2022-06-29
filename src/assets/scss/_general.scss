@@ -16,7 +16,10 @@ body {
 .font-14{ font-size: 14px !important }
 .rtl{ direction: rtl }
 .ltr{ direction: ltr }
-.width-150{width: 150px}
+.box-image-user{
+  width: 150px;
+  height: 175px;
+}
 .cur-pointer {
   cursor: pointer;
 }

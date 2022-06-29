@@ -35,41 +35,39 @@ const FormUser = ({
   return (
     <div className='mt-4'>
       {Object.keys(userCopy).map((key,index)=>
-        key !== 'profilePic' &&
         key !== 'pin' &&
         <div className='d-flex mb-4 justify-content-between'>
         <p className="font-12 mr-2 mb-0 d-flex align-items-center">{key}:</p>
-        <input
-        className='form-control w-75'
-        type="text"
-        value={newUser[key].value}
-        onChange={(e) => {
-          userCopy[key].value = e.target.value;
-          setNewUser(userCopy)
-        }}
-        />
+          { key === 'profilePic' ?
+            <div className="uploader-item file-uploader-box rounded w-75">
+              <input onChange={changeAvatar} className="file-uploader" type="file"/>
+              < div className='profileImg rounded cur-pointer bg-white d-flex justify-content-center align-items-center border'>
+                {
+                  newUser?.profilePic.value ?
+                    <img src={newUser?.profilePic.value} className='w-100 h-100 object-fit-cover'/>
+                    :
+                    <CameraIcon />
+
+                }
+              </div>
+            </div>
+            :
+            <input
+              className='form-control w-75'
+              type="text"
+              value={newUser[key].value}
+              onChange={(e) => {
+                userCopy[key].value = e.target.value;
+                setNewUser(userCopy)
+              }}
+            />
+
+
+          }
         </div>
       )}
-      <div className='d-flex mb-4 justify-content-between'>
-        <p className="font-12 mr-2 mb-0 d-flex align-items-center">Profile Pic:</p>
-        <div className="uploader-item file-uploader-box rounded w-75">
-          <input onChange={changeAvatar} className="file-uploader" type="file"/>
-          < div className='profileImg rounded cur-pointer bg-white d-flex justify-content-center align-items-center border'>
-            {
-              newUser?.profilePic.value ?
-                <img src={newUser?.profilePic.value} className='w-100 h-100'/>
-                :
-                <CameraIcon />
 
-            }
-          </div>
-
-
-        </div>
-      </div>
-
-
-      {errorForm && <p className='font-14 bg-red'>اطلاعات را تکمیل کنید</p>}
+      {errorForm && <p className='font-14 bg-red text-right'>اطلاعات را تکمیل کنید</p>}
       <div className='d-flex rtl'>
         <button className='btn btn-primary' onClick={()=>handleSaveUser(newUser?.idNo.value)}>save</button>
         <button className='btn btn-secondary mx-2' onClick={()=>handleCloseFormUserModal()}>back</button>

@@ -23,10 +23,10 @@ const UserItem = ({
     selectUserForPin(!user?.pin.value)
   }
   return (
-    <div className='userItem py-2 mt-2 d-flex'>
-      <div className="width-150 rounded mr-2 d-flex align-items-center justify-content-center">
+    <div className='userItem py-2 mt-2 d-flex rounded'>
+      <div className="box-image-user mr-2 d-flex align-items-center justify-content-center">
       {user?.profilePic.value ?
-        <img src={user?.profilePic.value} className='w-100 h-100 object-fit-cover'/> :
+        <img src={user?.profilePic.value} className='w-100 h-100 rounded object-fit-cover'/> :
           <CameraIcon />
       }
       </div>
